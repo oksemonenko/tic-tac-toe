@@ -1,0 +1,20 @@
+{
+  "name": "tic-tac-toe",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://oksemonenko.github.io/tic-tac-toe",
+  "dependencies": {},
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "build": "webpack",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.2.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^2.0.9",
+    "webpack-dev-server": "^3.1.7"
+  }
+}

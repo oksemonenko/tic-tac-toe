@@ -14,3 +14,8 @@ export const Level = {
     easy: 'easy',
     hard: 'hard'
 };
+
+export const Status = {
+    starting: 'starting',
+    finished: 'finished'
+};

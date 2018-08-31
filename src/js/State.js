@@ -90,7 +90,7 @@ export default class State {
         }
     };
 
-    static _checkAvailableTurn() {
+    _checkAvailableTurn() {
         let emptyCells = this.emptyCells();
         return !!emptyCells.length;
     }

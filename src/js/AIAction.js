@@ -1,6 +1,6 @@
 import State from './State'
 
-export default class AITurn {
+export default class AIAction {
 
     constructor(position) {
         this.movePosition = position;

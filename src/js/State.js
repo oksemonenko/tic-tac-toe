@@ -19,11 +19,11 @@ export default class State {
         }
     }
 
-    nextTurn = () => {
+    nextTurn() {
         this.turn = this.turn === CellValue.X ? CellValue.O : CellValue.X;
     };
 
-    emptyCells = () => {
+    emptyCells() {
         let emptyCellsIndexes = [];
         this.board.forEach((cell, i) => {
             if (cell === CellValue.Empty) {
@@ -33,7 +33,7 @@ export default class State {
         return emptyCellsIndexes;
     };
 
-    isFinished = () => {
+    isFinished() {
         let board = this.board;
         if (
             this._checkRows(board)
@@ -50,7 +50,7 @@ export default class State {
         return false;
     };
 
-    _checkRows = (board) => {
+    _checkRows(board) {
         for (let i = 0; i <= 20; i = i + 3) {
             if (
                 board[i] !== CellValue.Empty
@@ -64,7 +64,7 @@ export default class State {
         }
     };
 
-    _checkColumns = (board) => {
+    _checkColumns(board) {
         for (let i = 0; i <= 4; i = i++) {
             if (
                 board[i] !== CellValue.Empty
@@ -78,7 +78,7 @@ export default class State {
         }
     }  ;
 
-    _checkDiagonals = (board) => {
+    _checkDiagonals(board) {
         for (let i = 0, j = 6; i <= 4; i = i + 4, j = j - 2) {
             if (
                 board[i] !== CellValue.Empty
@@ -90,7 +90,7 @@ export default class State {
         }
     };
 
-    _checkAvailableTurn = () => {
+    static _checkAvailableTurn() {
         let emptyCells = this.emptyCells();
         return !!emptyCells.length;
     }

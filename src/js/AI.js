@@ -7,20 +7,20 @@ export default class AI {
         this.game = {};
     }
 
-    plays = (_game) => {
+    plays(_game) {
         this.game = _game;
     };
 
-    notify = (turn) => {
+    notify(turn) {
         const gameLevel = this.gameLevel;
         gameLevel === Level.easy ? this._takeEasyMove(turn) : this._takeHardMove(turn);
     };
 
-    _takeEasyMove = (turn) => {
+    _takeEasyMove(turn) {
 
     };
 
-    _takeHardMove = (turn) => {
+    _takeHardMove(turn) {
 
     };
 

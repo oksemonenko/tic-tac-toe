@@ -6,7 +6,7 @@ export default class AITurn {
         this.movePosition = position;
     }
 
-    applyTurnToState = (state) => {
+    applyTurnToState(state) {
         let nextState = new State(state);
 
         nextState.board[this.movePosition] = state.turn;

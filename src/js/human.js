@@ -1,4 +1,4 @@
-(function () {
+export default function () {
     let globals = {};
 
     this.onCellClick = () => {
@@ -18,4 +18,4 @@
     cells.forEach(cell => {
         cell.addEventListener('onclick', this.onCellClick)
     })
-})();
+};

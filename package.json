@@ -4,17 +4,40 @@
   "private": true,
   "homepage": "https://oksemonenko.github.io/tic-tac-toe",
   "dependencies": {},
-  "main": "webpack.config.js",
+  "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.js",
-    "build": "webpack",
+    "prestart": "rimraf public && npm install",
+    "start": "webpack-dev-server --mode development --hot --port=8081 --colors --progress",
+    "build": "webpack --mode production --colors --progress",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "keywords": [
+    "webpack",
+    "es6",
+    "babel",
+    "sass"
+  ],
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.10",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.6",
+    "lodash": "^4.17.4",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.8.2",
+    "resolve-url-loader": "^2.3.0",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.3",
     "gh-pages": "^1.2.0",
     "webpack": "^4.17.1",
     "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^3.1.7"
+    "webpack-dev-server": "^3.1.7",
+    "yargs": "^11.0.0"
   }
 }

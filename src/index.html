@@ -7,8 +7,8 @@
 <body>
     <main class='main'>
         <div class = 'board'>
-            <div class='board__cell' id = '0'>X</div>
-            <div class='board__cell' id = '1'>O</div>
+            <div class='board__cell' id = '0'></div>
+            <div class='board__cell' id = '1'></div>
             <div class='board__cell' id = '2'></div>
             <div class='board__cell' id = '3'></div>
             <div class='board__cell' id = '4'></div>
@@ -34,11 +34,20 @@
             <div class='board__cell' id = '24'></div>
         </div>
         <div class='controls'>
-            <div class='difficulty'>
-                <div class='difficulty__level difficulty__level--easy' id='easy'>Easy</div>
-                <div class='difficulty__level difficulty__level--hard' id='hard'>Hard</div>
+            <div class='controls__start fade-out'>
+                <div class='difficulty'>
+                    <div class='difficulty__level
+                         difficulty__level--selected
+                         difficulty__level--easy'
+                         id='easy'>Easy</div>
+                    <div class='difficulty__level difficulty__level--hard' id='hard'>Hard</div>
+                </div>
+                <button class='start-btn'>Start game!</button>
             </div>
-            <button class='start-btn'>Start game!</button>
+            <div class='controls__game fade-in' id='human'>Your turn</div>
+            <div class='controls__game fade-in' id='win'>You won!</div>
+            <div class='controls__game fade-in' id='lost'>You lost... :(</div>
+            <div class='controls__game fade-in' id='draw'>It's a draw</div>
         </div>
     </main>
 </body>

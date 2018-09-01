@@ -22,17 +22,21 @@ export default class Game {
     }
 
     start() {
-
+        if (this.status === Status.starting) {
+            this.transferGameToANextState(this.currentState);
+            this.status = Status.running;
+        }
     }
 
     transferGameToANextState(_state) {
         this.currentState = _state;
+        const isStateFinished = _state.isFinished();
 
-        if(_state.isFinished()) {
+        if(isStateFinished) {
             this.status = Status.finished;
         }
         else {
-
+            console.log('transferGameToANextState');
         }
     }
 }

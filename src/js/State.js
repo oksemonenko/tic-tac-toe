@@ -51,21 +51,21 @@ export default class State {
     };
 
     _checkRows(board) {
-        for (let i = 0; i <= 20; i = i + 3) {
-            if (
-                board[i] !== CellValue.Empty
-                && board[i] === board[i+1]
-                && board[i] === board[i+2]
-                && board[i] === board[i+3]
-                && board[i] === board[i+4]
-            ) {
+        for (let i = 0; i < 20; i = i + 5) {
+            if (board[i] !== CellValue.Empty) {
+                if (board[i] === board[i+1]
+                    && board[i] === board[i+2]
+                    && board[i] === board[i+3]
+                    && board[i] === board[i+4]
+                )
                 return true;
             }
         }
+        return false;
     };
 
     _checkColumns(board) {
-        for (let i = 0; i <= 4; i = i++) {
+        for (let i = 0; i < 4; i++) {
             if (
                 board[i] !== CellValue.Empty
                 && board[i] === board[i+5]
@@ -76,19 +76,40 @@ export default class State {
                 return true;
             }
         }
+        return false;
     }  ;
 
     _checkDiagonals(board) {
-        for (let i = 0, j = 6; i <= 4; i = i + 4, j = j - 2) {
-            if (
-                board[i] !== CellValue.Empty
-                && board[i] === board[i+j]
-                && board[i] === board[i+2*j]
-            ) {
-                return true;
-            }
-        }
+        return this._checkFirstDiagonal(board) || this._checkSecondDiagonal(board);
     };
+
+    _checkFirstDiagonal(board) {
+        for (let i = 0; i < 24; i = i + 6) {
+            if (board[i] !== CellValue.Empty
+                && board[i] === board[i+6]
+                && board[i] === board[i+12]
+                && board[i] === board[i+18]
+                && board[i] === board[i+24]
+                ) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    _checkSecondDiagonal(board) {
+        for (let i = 4; i < 20; i = i + 4) {
+            if (board[i] !== CellValue.Empty
+                && board[i] === board[i+4]
+                && board[i] === board[i+8]
+                && board[i] === board[i+12]
+                && board[i] === board[i+16]
+                ) {
+                    return true;
+                }
+        }
+        return false;
+    }
 
     _checkAvailableTurn() {
         let emptyCells = this.emptyCells();

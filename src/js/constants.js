@@ -1,5 +1,5 @@
 export const Result = {
-    running: 'running',
+    running: 'still running',
     win: 'win',
     draw: 'draw'
 };
@@ -17,5 +17,6 @@ export const Level = {
 
 export const Status = {
     starting: 'starting',
+    running: 'running',
     finished: 'finished'
 };

@@ -2,25 +2,70 @@
   width: 1000px;
   height: 100%;
   margin: 0 auto;
+  font-family: sans-serif;
 }
 
 .board {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
+  margin: 30px auto;
+
+  &__cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid gray;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 60px;
+  }
+}
+
+.controls {
+  width: 300px;
+  height: 300px;
   margin: 0 auto;
 }
 
-.cell {
-  width: 40px;
-  height: 40px;
-  border: 2px solid gray;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  cursor: pointer;
-  float: left;
-  line-height: 40px;
-  text-align: center;
-  font-weight: bold;
+.difficulty {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
   font-size: 20px;
+  text-transform: uppercase;
+
+  &__level {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    background-color: azure;
+    border: 1px solid gray;
+    cursor: pointer;
+
+    &--easy {
+      background-color: azure;
+    }
+
+    &--hard {
+      background-color: lightpink;
+    }
+  }
+}
+
+.start-btn {
+  display: block;
+  padding: 20px;
+  margin: 0 auto;
+  font-size: 24px;
+  color: white;
+  border: 2px solid gray;
+  border-radius: 10px;
+  background-color: gray;
+  cursor: pointer;
+  outline: none;
 }

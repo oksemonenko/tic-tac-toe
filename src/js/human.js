@@ -1,6 +1,7 @@
 import AI from './AI';
 import Game from './Game';
 import State from './State';
+import UI from './UI';
 import {
     CellValue,
     Level,
@@ -12,17 +13,23 @@ export default function Human () {
     let globals = {};
 
     function onCellClick(event) {
+        if (!Object.keys(globals).length) {
+            return;
+        }
         const cell = event.target;
         const occupiedCellClassName = 'board__cell--occupied';
         if (
             globals.game.status === Status.running
             && globals.game.currentState.turn === CellValue.X
-            && cell.classList.contains(occupiedCellClassName)
+            && !cell.classList.contains(occupiedCellClassName)
         ) {
             const index = Number(cell.getAttribute('id'));
-
             const nextState = new State(globals.game.currentState);
             nextState.board[index] = CellValue.X;
+
+            UI.insertSymbolAtCell(index, CellValue.X);
+            nextState.nextTurn();
+            globals.game.transferGameToANextState(nextState);
         }
         console.log('cell clicked');
     }
@@ -73,5 +80,5 @@ export default function Human () {
 
     cells.forEach(cell => {
         cell.addEventListener('click', onCellClick)
-    })
+    });
 };

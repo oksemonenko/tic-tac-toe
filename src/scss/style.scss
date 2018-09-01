@@ -30,6 +30,35 @@
   width: 300px;
   height: 300px;
   margin: 0 auto;
+
+  &__game {
+    display: none;
+
+    &--visible {
+      display: block;
+      animation-duration: 0.5s;
+    }
+  }
+}
+
+@-webkit-keyframes fade-in {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fade-in {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes fade-out {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes fade-out {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
 
 .difficulty {
@@ -46,6 +75,11 @@
     background-color: azure;
     border: 1px solid gray;
     cursor: pointer;
+    opacity: 0.5;
+
+    &--selected {
+      opacity: 1;
+    }
 
     &--easy {
       background-color: azure;
@@ -68,4 +102,9 @@
   background-color: gray;
   cursor: pointer;
   outline: none;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
 }

@@ -40,7 +40,6 @@ export default class State {
             || this._checkColumns(board)
             || this._checkDiagonals(board)
         ) {
-            this.result = Result.win;
             return true;
         }
         if (!this._checkAvailableTurn()) {
@@ -57,8 +56,10 @@ export default class State {
                     && board[i] === board[i+2]
                     && board[i] === board[i+3]
                     && board[i] === board[i+4]
-                )
-                return true;
+                ) {
+                    this.result = board[i] === CellValue.X ? Result.XWin : Result.OWin;
+                    return true;
+                }
             }
         }
         return false;
@@ -73,6 +74,7 @@ export default class State {
                 && board[i] === board[i+15]
                 && board[i] === board[i+20]
             ) {
+                this.result = board[i] === CellValue.X ? Result.XWin : Result.OWin;
                 return true;
             }
         }
@@ -84,29 +86,26 @@ export default class State {
     };
 
     _checkFirstDiagonal(board) {
-        for (let i = 0; i < 24; i = i + 6) {
-            if (board[i] !== CellValue.Empty
-                && board[i] === board[i+6]
-                && board[i] === board[i+12]
-                && board[i] === board[i+18]
-                && board[i] === board[i+24]
-                ) {
-                    return true;
-                }
+        if (board[0] !== CellValue.Empty
+            && board[0] === board[6]
+            && board[0] === board[12]
+            && board[0] === board[18]
+            && board[0] === board[24]) {
+            this.result = board[0] === CellValue.X ? Result.XWin : Result.OWin;
+            return true;
         }
         return false;
     }
 
+
     _checkSecondDiagonal(board) {
-        for (let i = 4; i < 20; i = i + 4) {
-            if (board[i] !== CellValue.Empty
-                && board[i] === board[i+4]
-                && board[i] === board[i+8]
-                && board[i] === board[i+12]
-                && board[i] === board[i+16]
-                ) {
-                    return true;
-                }
+        if (board[4] !== CellValue.Empty
+            && board[4] === board[8]
+            && board[4] === board[12]
+            && board[4] === board[16]
+            && board[4] === board[20]) {
+            this.result = board[4] === CellValue.X ? Result.XWin : Result.OWin;
+            return true;
         }
         return false;
     }

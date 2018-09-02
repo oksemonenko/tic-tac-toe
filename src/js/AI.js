@@ -1,6 +1,5 @@
 import AIAction from './AIAction';
-import UI from './UI';
-import {Level} from "./constants";
+import {LevelEnum} from "./enums/Level.enum";
 
 export default class AI {
 
@@ -15,7 +14,7 @@ export default class AI {
 
     notify(turn) {
         const gameLevel = this.gameLevel;
-        gameLevel === Level.easy ? this._takeEasyMove(turn) : this._takeHardMove(turn);
+        gameLevel === LevelEnum.EASY ? this._takeEasyMove(turn) : this._takeHardMove(turn);
     };
 
     _takeEasyMove(turn) {
@@ -23,7 +22,7 @@ export default class AI {
         const cell = availableTurns[Math.floor(Math.random() * availableTurns.length)];
         const action = new AIAction(cell);
         const nextState = action.applyTurnToState(this.game.currentState);
-        UI.insertSymbolAtCell(cell, turn);
+        this.game.ui.insertSymbolAtCell(cell, turn);
         this.game.transferGameToANextState(nextState);
     };
 

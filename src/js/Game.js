@@ -1,62 +1,47 @@
 import State from './State';
 import UI from './UI';
-import {
-    CellValue,
-    Player,
-    Result,
-    Status
-} from "./constants";
+import {CellValueEnum} from "./enums/CellValue.enum";
+import {StatusEnum} from "./enums/Status.enum";
 
 export default class Game {
 
     constructor(autoPlayer) {
         this.ai = autoPlayer;
+        this.ui = new UI();
         this.currentState = new State();
 
         this.currentState.board = [];
 
         for (let i = 0; i <= 24; i++) {
-            this.currentState.board.push(CellValue.Empty);
+            this.currentState.board.push(CellValueEnum.EMPTY);
         }
 
-        this.currentState.turn = CellValue.X;
-        this.status = Status.starting;
+        this.currentState.turn = CellValueEnum.X;
+        this.status = StatusEnum.STARTING;
         console.log('game loaded');
     }
 
     start() {
-        if (this.status === Status.starting) {
+        if (this.status === StatusEnum.STARTING) {
             this.transferGameToANextState(this.currentState);
-            this.status = Status.running;
+            this.status = StatusEnum.RUNNING;
         }
     }
 
     transferGameToANextState(_state) {
         this.currentState = _state;
         const isStateFinished = _state.isFinished();
+        this.ui.switchViewTo(_state.result);
 
         if(isStateFinished) {
-            this.status = Status.finished;
-
-            if (_state.result === Result.XWin) {
-                console.log('X win');
-            }
-            else if (_state.result === Result.OWin) {
-                console.log('O win');
-            }
-            else {
-                console.log('Draw');
-            }
+            this.status = StatusEnum.FINISHED;
         }
         else {
-            if (this.currentState.turn === CellValue.X) {
-                UI.switchViewTo(Player.human);
+            if (this.currentState.turn === CellValueEnum.O) {
+                this.ai.notify(CellValueEnum.O);
             }
-            else {
-                UI.switchViewTo(Player.computer);
-                this.ai.notify(CellValue.O);
-            }
-            console.log('transferGameToANextState');
+
+            console.log('transferGameToANextState', _state.result);
         }
     }
 }

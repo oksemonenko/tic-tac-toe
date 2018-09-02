@@ -31,12 +31,27 @@
   height: 300px;
   margin: 0 auto;
 
+  &__start {
+
+    &--hidden {
+      display: none;
+      animation-duration: 0.5s;
+      animation-name: fade-in;
+    }
+  }
+
   &__game {
     display: none;
 
     &--visible {
       display: block;
+      font-size: 40px;
+      font-weight: bold;
+      color: darkblue;
+      text-align: center;
+      text-transform: uppercase;
       animation-duration: 0.5s;
+      animation-name: fade-in;
     }
   }
 }

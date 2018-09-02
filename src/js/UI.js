@@ -35,6 +35,11 @@ export default class UI {
         });
 
         const messageElement = document.getElementById(result);
-        messageElement.classList.add('controls__game--visible');
+
+        setTimeout(makeMessageVisible, 300);
+
+        function makeMessageVisible() {
+            messageElement.classList.add('controls__game--visible');
+        }
     }
 }

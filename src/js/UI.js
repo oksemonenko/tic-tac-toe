@@ -27,18 +27,9 @@ export default class UI {
             startControlsElement.classList.add('controls__start--hidden')
         }
 
-        const messageElements = document.querySelectorAll('.controls__game--visible');
-        messageElements.forEach(messageElement => {
-            if (messageElement.classList.contains('controls__game--visible')) {
-                messageElement.classList.remove('controls__game--visible');
-            }
-        });
+        if (result !== ResultEnum.NORESULT) {
+            const messageElement = document.getElementById(result);
 
-        const messageElement = document.getElementById(result);
-
-        setTimeout(makeMessageVisible, 300);
-
-        function makeMessageVisible() {
             messageElement.classList.add('controls__game--visible');
         }
     }

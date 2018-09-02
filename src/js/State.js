@@ -48,7 +48,7 @@ export default class State {
     };
 
     _checkRows(board) {
-        for (let i = 0; i < 20; i = i + 5) {
+        for (let i = 0; i <= 20; i = i + 5) {
             if (board[i] !== CellValueEnum.EMPTY) {
                 if (board[i] === board[i+1]
                     && board[i] === board[i+2]
@@ -64,7 +64,7 @@ export default class State {
     };
 
     _checkColumns(board) {
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i <= 4; i++) {
             if (
                 board[i] !== CellValueEnum.EMPTY
                 && board[i] === board[i+5]

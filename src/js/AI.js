@@ -1,11 +1,15 @@
 import AIAction from './AIAction';
 import {LevelEnum} from "./enums/Level.enum";
+import Game from "./Game";
+import {CellValueEnum} from "./enums/CellValue.enum";
+import {ResultEnum} from "./enums/Result.enum";
 
 export default class AI {
 
     constructor(level) {
         this.gameLevel = level;
         this.game = {};
+        this.currentCount = 0;
     }
 
     plays(_game) {
@@ -27,7 +31,75 @@ export default class AI {
     };
 
     _takeHardMove(turn) {
+        const availableTurns = this.game.currentState.emptyCells();
 
+        const availableActions = availableTurns.map(position => {
+            const action = new AIAction(position);
+            const nextState = action.applyTurnToState(this.game.currentState);
+            action.minimaxVal = this.minimaxValue(nextState);
+            return action;
+        });
+
+        console.log('availableActions', availableActions);
+
+        if (turn === CellValueEnum.X) {
+            availableActions.sort(AIAction.descendingSort);
+        }
+        else {
+            availableActions.sort(AIAction.ascendingSort);
+        }
+
+        const chosenAction = availableActions[0];
+        const nextState = chosenAction.applyTurnToState(this.game.currentState);
+
+        this.game.ui.insertSymbolAtCell(chosenAction.movePosition, turn);
+        this.game.transferGameToANextState(nextState);
     };
+
+    minimaxValue(state) {
+        this.currentCount++;
+        console.log('currentCount', this.currentCount);
+
+        if (state.result !== ResultEnum.NORESULT) {
+            const gameScore = Game.score(state);
+            console.log('game score', gameScore);
+            return gameScore;
+        }
+        else {
+            let stateScore;
+
+            if (state.turn === CellValueEnum.X) {
+                stateScore = -1000;
+            }
+            else {
+                stateScore = 1000;
+            }
+
+            const availableTurns = state.emptyCells();
+
+            const availableNextStates = availableTurns.map(position => {
+                const action = new AIAction(position);
+                return action.applyTurnToState(state);
+            });
+            console.log('availableNextStates', availableNextStates);
+
+            availableNextStates.forEach(nextState => {
+                const nextScore = this.minimaxValue(nextState);
+
+                if (state.turn === CellValueEnum.X) {
+                    if (nextScore > stateScore) {
+                        stateScore = nextScore;
+                    }
+                }
+                else {
+                    if (nextScore < stateScore) {
+                        stateScore = nextScore;
+                    }
+                }
+            });
+
+            return stateScore;
+        }
+    }
 
 };

@@ -2,6 +2,7 @@ import State from './State';
 import UI from './UI';
 import {CellValueEnum} from "./enums/CellValue.enum";
 import {StatusEnum} from "./enums/Status.enum";
+import {ResultEnum} from "./enums/Result.enum";
 
 export default class Game {
 
@@ -40,8 +41,20 @@ export default class Game {
             if (this.currentState.turn === CellValueEnum.O) {
                 this.ai.notify(CellValueEnum.O);
             }
+        }
+    }
 
-            console.log('transferGameToANextState', _state.result);
+    static score(_state) {
+        if (_state.result !== ResultEnum.NORESULT) {
+            if (_state.result === ResultEnum.XWIN) {
+                return 26 - _state.oMovesCount;
+            }
+            else if (_state.result === ResultEnum.OWIN) {
+                return -26 + _state.oMovesCount;
+            }
+            else {
+                return 0;
+            }
         }
     }
 }

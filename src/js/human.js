@@ -11,6 +11,7 @@ export default function Human () {
 
     function onCellClick(event) {
         if (!Object.keys(globals).length) {
+            alert('Please click "Start game!" button to start');
             return;
         }
         const cell = event.target;

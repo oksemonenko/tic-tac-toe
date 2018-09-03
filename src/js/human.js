@@ -6,7 +6,6 @@ import {LevelEnum} from "./enums/Level.enum";
 import {StatusEnum} from "./enums/Status.enum";
 
 export default function Human () {
-    console.log('HUMAN');
     let globals = {};
 
     function onCellClick(event) {
@@ -29,7 +28,6 @@ export default function Human () {
             nextState.nextTurn();
             globals.game.transferGameToANextState(nextState);
         }
-        console.log('cell clicked');
     }
 
     function onLevelBtnClick(event) {
@@ -44,7 +42,6 @@ export default function Human () {
             selected.classList.toggle(selectedLevelClassName);
             clickedLevelBtn.classList.add(selectedLevelClassName);
         }
-        console.log('level choose', level);
     }
 
     function onStartBtnClick() {
@@ -60,8 +57,6 @@ export default function Human () {
         globals.game = new Game(aiPlayer);
         aiPlayer.plays(globals.game);
         globals.game.start();
-
-        console.log('start clicked', selectedLevel);
     }
 
     let levels = document.querySelectorAll('.difficulty__level');

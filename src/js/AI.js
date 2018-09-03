@@ -9,7 +9,6 @@ export default class AI {
     constructor(level) {
         this.gameLevel = level;
         this.game = {};
-        this.currentCount = 0;
     }
 
     plays(_game) {
@@ -40,8 +39,6 @@ export default class AI {
             return action;
         });
 
-        console.log('availableActions', availableActions);
-
         if (turn === CellValueEnum.X) {
             availableActions.sort(AIAction.descendingSort);
         }
@@ -57,13 +54,8 @@ export default class AI {
     };
 
     minimaxValue(state) {
-        this.currentCount++;
-        console.log('currentCount', this.currentCount);
-
         if (state.result !== ResultEnum.NORESULT) {
-            const gameScore = Game.score(state);
-            console.log('game score', gameScore);
-            return gameScore;
+            return Game.score(state);
         }
         else {
             let stateScore;
@@ -81,7 +73,6 @@ export default class AI {
                 const action = new AIAction(position);
                 return action.applyTurnToState(state);
             });
-            console.log('availableNextStates', availableNextStates);
 
             availableNextStates.forEach(nextState => {
                 const nextScore = this.minimaxValue(nextState);

@@ -19,7 +19,6 @@ export default class Game {
 
         this.currentState.turn = CellValueEnum.X;
         this.status = StatusEnum.STARTING;
-        console.log('game loaded');
     }
 
     start() {

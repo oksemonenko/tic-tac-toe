@@ -3,7 +3,6 @@ import {ResultEnum} from "./enums/Result.enum";
 export default class UI {
 
     constructor() {
-        this.currentView = '';
         this.startControls = true;
     }
 
@@ -18,8 +17,6 @@ export default class UI {
     }
 
     switchViewTo(result) {
-        this.currentView = result;
-
         if (this.startControls) {
             this.startControls = false;
 

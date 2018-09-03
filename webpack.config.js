@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevelopment = argv.mode === 'development';
 const isProduction = !isDevelopment;
-const distPath = path.join(__dirname, '/public');
+const distPath = path.join(__dirname, '/build');
 
 const config = {
     entry: {

@@ -3,13 +3,13 @@ import {LevelEnum} from "./enums/Level.enum";
 import Game from "./Game";
 import {CellValueEnum} from "./enums/CellValue.enum";
 import {ResultEnum} from "./enums/Result.enum";
+import {WinCombinations} from "./constants/WinCombinations";
 
 export default class AI {
 
     constructor(level) {
         this.gameLevel = level;
         this.game = {};
-        this.currentCount = 0;
     }
 
     plays(_game) {
@@ -30,67 +30,12 @@ export default class AI {
         this.game.transferGameToANextState(nextState);
     };
 
-    _countX(board, combination) {
-        let count = 0;
-        combination.forEach(item => {
-            if (board[item] === CellValueEnum.X) {
-                count++;
-            }
-        });
-        console.log('count X', combination, count);
-        return count;
-    }
-
-    _getAnyIndexOfOTurn(board, combination) {
-        let emptyCells = [];
-        combination.forEach(item => {
-            if (board[item] === CellValueEnum.EMPTY) {
-                emptyCells.push(item);
-            }
-        });
-        console.log('emptyCells[0]', emptyCells[0]);
-        return emptyCells[0];
-    }
-
-    _getNextOTurn() {
-        const winCombinations = [
-            [0,1,2,3,4],
-            [5,6,7,8,9],
-            [10,11,12,13,14],
-            [15,16,17,18,19],
-            [20,21,22,23,24],
-
-            [0,5,10,15,20],
-            [1,6,11,16,21],
-            [2,7,12,17,22],
-            [3,8,13,18,23],
-            [4,9,14,19,24],
-
-            [0,6,12,18,24],
-            [4,8,12,16,20]
-        ];
-
-        let nextTurn = -1;
-        winCombinations.forEach(combination => {
-            if (this._countX(this.game.currentState.board, combination) === 4) {
-                let newNextTurn =  this._getAnyIndexOfOTurn(this.game.currentState.board, combination);
-                if (newNextTurn !== undefined) {
-                    nextTurn = newNextTurn;
-                }
-            }
-        });
-        if (nextTurn >= 0) {
-            return nextTurn;
-        }
-        else {
-            return -1;
-        }
-    }
-
     _takeHardMove(turn) {
         const availableTurns = this.game.currentState.emptyCells();
         let chosenAction;
 
+        // If there are more then 8 empty cells use algorithm to take move on line
+        // where there are 4 of X cells or if there are no such lines take a random move
         if (availableTurns.length >= 8) {
             let nextTurn = this._getNextOTurn();
 
@@ -105,6 +50,7 @@ export default class AI {
                 this.game.transferGameToANextState(nextState);
             }
         }
+        // If there are less then 8 empty cells use minimax algorithm
         else {
             const availableActions = availableTurns.map(position => {
                 const action = new AIAction(position);
@@ -128,10 +74,46 @@ export default class AI {
         }
     };
 
-    minimaxValue(state) {
-        this.currentCount++;
-        console.log('currentCount', this.currentCount);
+    _countX(board, combination) {
+        let count = 0;
+        combination.forEach(item => {
+            if (board[item] === CellValueEnum.X) {
+                count++;
+            }
+        });
+        return count;
+    }
 
+    _getAnyIndexOfOTurn(board, combination) {
+        let emptyCells = [];
+        combination.forEach(item => {
+            if (board[item] === CellValueEnum.EMPTY) {
+                emptyCells.push(item);
+            }
+        });
+        return emptyCells[0];
+    }
+
+    _getNextOTurn() {
+        const winCombinations = WinCombinations;
+        let nextTurn = -1;
+        winCombinations.forEach(combination => {
+            if (this._countX(this.game.currentState.board, combination) === 4) {
+                let newNextTurn = this._getAnyIndexOfOTurn(this.game.currentState.board, combination);
+                if (newNextTurn !== undefined) {
+                    nextTurn = newNextTurn;
+                }
+            }
+        });
+        if (nextTurn >= 0) {
+            return nextTurn;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    minimaxValue(state) {
         if (state.result !== ResultEnum.NORESULT) {
             return Game.score(state);
         }
@@ -170,5 +152,4 @@ export default class AI {
             return stateScore;
         }
     }
-
 };
